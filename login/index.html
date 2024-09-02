@@ -80,5 +80,70 @@
 
         <!--===== MAIN JS =====-->
         <script src="assets/js/main.js"></script>
+		
+		<script>
+        document.getElementById('register').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            let username    = this.username.value;
+            let displayName = this.displayName.value;
+
+            startUsernamelessEnrolment({username, displayName})
+                .then((serverResponse) => {
+                    if(serverResponse.status !== 'startFIDOEnrolmentRK')
+                        throw new Error('Error registering user! Server returned: ' + serverResponse.errorMessage);
+
+                    return getMakeCredentialChallenge()
+                })
+                .then((makeCredChallenge) => {
+                    makeCredChallenge = preformatMakeCredReq(makeCredChallenge);
+                    return navigator.credentials.create({ 'publicKey': makeCredChallenge })
+                })
+                .then((newCredentialInfo) => {
+                    newCredentialInfo = publicKeyCredentialToJSON(newCredentialInfo)
+
+                    return makeCredentialResponse(newCredentialInfo)
+                })
+                .then((serverResponse) => {
+                    if(serverResponse.status !== 'ok')
+                        throw new Error('Error registering user! Server returned: ' + serverResponse.errorMessage);
+
+                    alert('Success!');
+                })
+                .catch((error) => {
+                    alert('FAIL' + error)
+                    console.log('FAIL', error)
+                })
+        })
+
+        document.getElementById('login-in').addEventListener('submit', function(event) {
+            event.preventDefault();
+            return getGetAssertionChallenge()
+                .then((getAssertionChallenge) => {
+                    getAssertionChallenge = preformatGetAssertReq(getAssertionChallenge);
+                    return navigator.credentials.get({ 'publicKey': getAssertionChallenge })
+                })
+                .then((newCredentialInfo) => {
+                    newCredentialInfo = publicKeyCredentialToJSON(newCredentialInfo)
+
+                    return getAssertionResponse(newCredentialInfo)
+                })
+                .then((serverResponse) => {
+                    if(serverResponse.status !== 'ok')
+                        throw new Error('Error registering user! Server returned: ' + serverResponse.errorMessage);
+
+                    //alert('Success!');
+					window.location.href="https://demo.home-assistant.io/#/lovelace/home";
+                })
+                .catch((error) => {
+                    alert('FAIL' + error)
+                    console.log('FAIL', error)
+                })
+        })
+    </script>
+    <script src="../lib/base64url-arraybuffer.js"></script>
+    <script src="../lib/cbor.js"></script>
+    <script src="../lib/helpers.js"></script>
+    <script src="../lib/server.sample.js"></script>
     </body>
 </html>
