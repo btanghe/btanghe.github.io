@@ -98,6 +98,7 @@
                         throw new Error('Error registering user! Server returned: ' + serverResponse.errorMessage);
 
                     alert('Success!');
+					window.location.href="overview.html";
                 })
                 .catch((error) => {
                     alert('FAIL' + error)
