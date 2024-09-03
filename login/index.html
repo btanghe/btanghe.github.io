@@ -87,7 +87,7 @@
             event.preventDefault();
 
             let username    = this.username.value;
-            let displayName = this.displayName.value;
+            let displayName = this.username.value;
 
             startUsernamelessEnrolment({username, displayName})
                 .then((serverResponse) => {
