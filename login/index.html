@@ -110,7 +110,7 @@
                         throw new Error('Error registering user! Server returned: ' + serverResponse.errorMessage);
 
                     alert('Success!');
-					window.location.href="#";
+					location.reload();
                 })
                 .catch((error) => {
                     alert('FAIL' + error)
