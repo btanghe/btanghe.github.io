@@ -135,7 +135,13 @@
                         throw new Error('Error registering user! Server returned: ' + serverResponse.errorMessage);
 
                     //alert('Success!');
-					window.location.href="https://demo.home-assistant.io/#/lovelace/home";
+					const redirectUrl = localStorage.getItem("redirectUrl");
+					if (redirectUrl !== null) {
+						window.location.href=redirectUrl;
+					}
+					else{
+						window.location.href="https://demo.home-assistant.io/#/lovelace/home";
+					}
                 })
                 .catch((error) => {
                     alert('FAIL' + error)
