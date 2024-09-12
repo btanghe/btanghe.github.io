@@ -4,10 +4,10 @@
 /*===== VARIABLES CSS =====*/
 :root{
   /*===== Colores =====*/
-  --first-color: #9D4BFF;
-  --first-color-dark: #23004D;
-  --first-color-light: #A49EAC;
-  --first-color-lighten: #F2F2F2;
+  --first-color: #00788C;
+  --first-color-dark: #003F50;
+  --first-color-light: #4CDbCb;
+  --first-color-lighten: #A5EDE5;
 
   /*===== Font and typography =====*/
   --body-font: 'Open Sans', sans-serif;
