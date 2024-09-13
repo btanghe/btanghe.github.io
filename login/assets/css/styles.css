@@ -230,6 +230,7 @@ img{
   .login__img img{
     width: 390px;
     margin-top: 0;
+	height: fit-content;
   }
 
   .login__registre, .login__create{
