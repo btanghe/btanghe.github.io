@@ -12,11 +12,11 @@
 
         <title>Responsive Login Form Sign In Sign Up</title>
     </head>
-    <body>
+    <body onload="onload();">
         <div class="login">
             <div class="login__content">
                 <div class="login__img">
-                    <img src="assets/img/img-login.svg" alt="">
+                    <img src="assets/img/img-login.svg" id="companyPicture" alt="">
                 </div>
 
                 <div class="login__forms">
@@ -83,6 +83,28 @@
         <!--===== MAIN JS =====-->
 	
 		<script>
+		
+		function onload(){
+			const picture = localStorage.getItem("picture");
+			if (picture !== null) {
+				var image = document.getElementById('companyPicture');
+				image.src = picture;
+			}
+			
+			const firstcolor = localStorage.getItem("first-color");
+			const firstcolordark = localStorage.getItem("first-color-dark");
+			const firstcolorlight = localStorage.getItem("first-color-light");
+			const firstcolorlighten = localStorage.getItem("first-color-lighten");
+			
+			if (firstcolor !== null) {
+				var r = document.querySelector(':root');
+				r.style.setProperty('--first-color', firstcolor);
+				r.style.setProperty('--first-color-dark', firstcolordark);
+				r.style.setProperty('--first-color-light', firstcolorlight);
+				r.style.setProperty('--first-color-lighten', firstcolorlighten);
+			}
+		}
+		
         document.getElementById('login-up').addEventListener('submit', function(event) {
             event.preventDefault();
 
